@@ -1,8 +1,12 @@
+import { AttendeeList } from "./components/attendee-list"
+import { Header } from "./components/header"
+
 function App() {
   return (
-    <h1>
-      Hello Word
-    </h1>
+    <div className="flex gap-2">
+        <Header />
+        <AttendeeList />
+    </div>
   )
 }
 
