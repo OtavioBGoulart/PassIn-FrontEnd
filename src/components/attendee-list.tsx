@@ -21,32 +21,54 @@ export function AttendeeList() {
               <th className="py-3 px-2.5 text-sm font-semibold text-left ">
                 <input type="checkbox" />
               </th>
-              <th className="py-3 px-2.5 text-sm font-semibold text-left">Código</th>
-              <th className="py-3 px-2.5 text-sm font-semibold text-left">Participante</th>
-              <th className="py-3 px-2.5 text-sm font-semibold text-left">Data de inscrição</th>
-              <th className="py-3 px-2.5 text-sm font-semibold text-left">Data de check in</th>
+              <th className="py-3 px-2.5 text-sm font-semibold text-left">
+                Código
+              </th>
+              <th className="py-3 px-2.5 text-sm font-semibold text-left">
+                Participante
+              </th>
+              <th className="py-3 px-2.5 text-sm font-semibold text-left">
+                Data de inscrição
+              </th>
+              <th className="py-3 px-2.5 text-sm font-semibold text-left">
+                Data de check in
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-white/10">
-              <td className="py-3 px-2.5 text-sm text-zinc-300">
-                <input type="checkbox" />
-              </td>
-              <td className="py-3 px-2.5 text-sm text-zinc-300">12383</td>
-              <td className="py-3 px-2.5 text-sm text-zinc-300">
-                <div className="flex flex-col gap-1">
-                <span className="font-semibold text-white">Otávio Goulart</span>
-                <span>otavio@gmail.com</span>
-                </div>
-              </td>
-              <td className="py-3 px-2.5 text-sm text-zinc-300">7 dias atrás</td>
-              <td className="py-3 px-2.5 text-sm text-zinc-300">3 dias atrás</td>
-            </tr>
+            {Array.from({ length: 8 }).map(() => {
+              return (
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-2.5 text-sm text-zinc-300">
+                    <input type="checkbox" />
+                  </td>
+                  <td className="py-3 px-2.5 text-sm text-zinc-300">12383</td>
+                  <td className="py-3 px-2.5 text-sm text-zinc-300">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-semibold text-white">
+                        Otávio Goulart
+                      </span>
+                      <span>otavio@gmail.com</span>
+                    </div>
+                  </td>
+                  <td className="py-3 px-2.5 text-sm text-zinc-300">
+                    7 dias atrás
+                  </td>
+                  <td className="py-3 px-2.5 text-sm text-zinc-300">
+                    3 dias atrás
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
           <tfoot>
             <tr>
-              <td className="py-3 px-2.5 text-sm text-zinc-300" colSpan={3}>Mostrando 10 de 28 items</td>
-              <td className="py-3 px-2.5 text-sm text-zinc-300" colSpan={3}>Mostrando 10 de 28 items</td>
+              <td className="py-3 px-2.5 text-sm text-zinc-300" colSpan={3}>
+                Mostrando 10 de 28 items
+              </td>
+              <td className="py-3 px-2.5 text-sm text-zinc-300" colSpan={3}>
+                Mostrando 10 de 28 items
+              </td>
             </tr>
           </tfoot>
         </table>
