@@ -13,7 +13,7 @@ export function AttendeeList() {
         <div className="px-3 w-72 py-1.5 border border-white/10 rounded-lg text-sm flex items-center gap-3">
           <Search className="size-4 text-emerald-300" />
           <input
-            className="bg-transparent flex-1 outline-none"
+            className="bg-transparent flex-1 outline-none border-0 p-0 text-sm"
             placeholder="Buscar participante..."
           />
         </div>
@@ -27,7 +27,7 @@ export function AttendeeList() {
                 style={{ width: 64 }}
                 className="py-3 px-4 text-sm font-semibold text-left "
               >
-                <input type="checkbox" />
+                <input type="checkbox" className="bg-black/20 size-4 rounded border border-white/10 checked:bg-orange-400 " />
               </th>
               <th className="py-3 px-4 text-sm font-semibold text-left">
                 Código
@@ -51,9 +51,9 @@ export function AttendeeList() {
           <tbody>
             {Array.from({ length: 8 }).map((_, i) => {
               return (
-                <tr key={i} className="border-b border-white/10">
+                <tr key={i} className="border-b border-white/10 hover:bg-white/5">
                   <td className="py-3 px-4 text-sm text-zinc-300">
-                    <input type="checkbox" />
+                    <input type="checkbox" className="bg-black/20 size-4 rounded border border-white/10 checked:bg-orange-400" />
                   </td>
                   <td className="py-3 px-4 text-sm text-zinc-300">12383</td>
                   <td className="py-3 px-4 text-sm text-zinc-300">
