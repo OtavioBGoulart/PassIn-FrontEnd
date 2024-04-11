@@ -4,6 +4,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { IconButton } from "./icon-button";
+import { Table } from "./table/table";
 
 export function AttendeeList() {
   return (
@@ -19,8 +21,7 @@ export function AttendeeList() {
         </div>
       </div>
 
-      <div className="border border-white/10 rounded-lg">
-        <table className="w-full">
+      <Table>
           <thead>
             <tr className="border-b border-white/10">
               <th
@@ -71,9 +72,9 @@ export function AttendeeList() {
                     3 dias atrás
                   </td>
                   <td className="py-3 px-4 text-sm text-zinc-300">
-                    <button className="bg-black/10 border border-white/10 rounded-md p-1.5">
+                    <IconButton transparent={true}>
                       <MoreHorizontal className="size-4" />
-                    </button>
+                    </IconButton>
                   </td>
                 </tr>
               );
@@ -89,25 +90,24 @@ export function AttendeeList() {
                 <div className="inline-flex items-center gap-8">
                   <span>Página 1 de 23</span>
                   <div className="flex gap-1.5">
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    <IconButton >
                       <ChevronLeft className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButton>
+                    <IconButton >
                       <ChevronLeft className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButton>
+                    <IconButton >
                       <ChevronRight className="size-4" />
-                    </button>
-                    <button className="bg-white/10 border border-white/10 rounded-md p-1.5">
+                    </IconButton>
+                    <IconButton >
                       <ChevronRight className="size-4" />
-                    </button>
+                    </IconButton>
                   </div>
                 </div>
               </td>
             </tr>
           </tfoot>
-        </table>
-      </div>
+      </Table>
     </div>
   );
 }
