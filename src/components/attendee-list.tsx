@@ -7,6 +7,7 @@ import {
 import { IconButton } from "./icon-button";
 import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
+import { TableCell } from "./table/table-cell";
 
 export function AttendeeList() {
   return (
@@ -43,32 +44,32 @@ export function AttendeeList() {
           {Array.from({ length: 8 }).map((_, i) => {
             return (
               <tr key={i} className="border-b border-white/10 hover:bg-white/5">
-                <td className="py-3 px-4 text-sm text-zinc-300">
+                <TableCell>
                   <input
                     type="checkbox"
                     className="bg-black/20 size-4 rounded border border-white/10 checked:bg-orange-400"
                   />
-                </td>
-                <td className="py-3 px-4 text-sm text-zinc-300">12383</td>
-                <td className="py-3 px-4 text-sm text-zinc-300">
+                </TableCell>
+                <TableCell>12383</TableCell>
+                <TableCell>
                   <div className="flex flex-col gap-1">
                     <span className="font-semibold text-white">
                       Otávio Goulart
                     </span>
                     <span>otavio@gmail.com</span>
                   </div>
-                </td>
-                <td className="py-3 px-4 text-sm text-zinc-300">
+                </TableCell>
+                <TableCell>
                   7 dias atrás
-                </td>
-                <td className="py-3 px-4 text-sm text-zinc-300">
+                </TableCell>
+                <TableCell>
                   3 dias atrás
-                </td>
-                <td className="py-3 px-4 text-sm text-zinc-300">
+                </TableCell>
+                <TableCell>
                   <IconButton transparent={true}>
                     <MoreHorizontal className="size-4" />
                   </IconButton>
-                </td>
+                </TableCell>
               </tr>
             );
           })}
@@ -76,11 +77,11 @@ export function AttendeeList() {
 
         <tfoot>
           <tr>
-            <td className="py-3 px-4 text-sm text-zinc-300" colSpan={3}>
+            <TableCell colSpan={3}>
               Mostrando 10 de 28 items
-            </td>
-            <td
-              className="py-3 px-4 text-sm text-zinc-300 text-right"
+            </TableCell>
+            <TableCell
+              className="text-right"
               colSpan={3}
             >
               <div className="inline-flex items-center gap-8">
@@ -100,7 +101,7 @@ export function AttendeeList() {
                   </IconButton>
                 </div>
               </div>
-            </td>
+            </TableCell>
           </tr>
         </tfoot>
       </Table>
