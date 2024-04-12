@@ -13,33 +13,32 @@ import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Attendee {
-
-  id: string
-  name: string
-  email: string
-  createdAt: string
-  checkedInAt: string | null
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  checkedInAt: string | null;
 }
 
 export function AttendeeList() {
-
   const [search, setSearch] = useState("");
-  const [attendees, setAttendees] = useState<Attendee[]>([])
+  const [attendees, setAttendees] = useState<Attendee[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees")
-    .then(response => response.json())
-    .then(data => {
-      setAttendees(data.attendees);
-    })
-  } )
+    fetch(
+      "http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAttendees(data.attendees);
+      });
+  });
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
-    
-    setSearch(event.target.value) 
+    setSearch(event.target.value);
   }
 
   return (
@@ -76,7 +75,10 @@ export function AttendeeList() {
         <tbody>
           {attendees.map((attendee) => {
             return (
-              <tr key={attendee.id} className="border-b border-white/10 hover:bg-white/5">
+              <tr
+                key={attendee.id}
+                className="border-b border-white/10 hover:bg-white/5"
+              >
                 <TableCell>
                   <input
                     type="checkbox"
@@ -92,11 +94,11 @@ export function AttendeeList() {
                     <span>{attendee.email}</span>
                   </div>
                 </TableCell>
+                <TableCell>{dayjs().to(attendee.createdAt)}</TableCell>
                 <TableCell>
-                {dayjs().to(attendee.createdAt)}
-                </TableCell>
-                <TableCell>
-                {dayjs().to(attendee.createdAt)}
+                  {attendee.id === null
+                    ? "Não fez check-in"
+                    : dayjs().to(attendee.checkedInAt)}
                 </TableCell>
                 <TableCell>
                   <IconButton transparent={true}>
@@ -110,13 +112,8 @@ export function AttendeeList() {
 
         <tfoot>
           <tr>
-            <TableCell colSpan={3}>
-              Mostrando 10 de 28 items
-            </TableCell>
-            <TableCell
-              className="text-right"
-              colSpan={3}
-            >
+            <TableCell colSpan={3}>Mostrando 10 de 28 items</TableCell>
+            <TableCell className="text-right" colSpan={3}>
               <div className="inline-flex items-center gap-8">
                 <span>Página 1 de 23</span>
                 <div className="flex gap-1.5">
