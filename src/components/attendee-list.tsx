@@ -8,8 +8,40 @@ import { IconButton } from "./icon-button";
 import { Table } from "./table/table";
 import { TableHeader } from "./table/table-header";
 import { TableCell } from "./table/table-cell";
+import { ChangeEvent, useEffect, useState } from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime)
+
+interface Attendee {
+
+  id: string
+  name: string
+  email: string
+  createdAt: string
+  checkedInAt: string | null
+}
 
 export function AttendeeList() {
+
+  const [search, setSearch] = useState("");
+  const [attendees, setAttendees] = useState<Attendee[]>([])
+
+  useEffect(() => {
+    fetch("http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees")
+    .then(response => response.json())
+    .then(data => {
+      setAttendees(data.attendees);
+    })
+  } )
+
+  function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
+    
+    setSearch(event.target.value) 
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-3 items-center">
@@ -17,6 +49,7 @@ export function AttendeeList() {
         <div className="px-3 w-72 py-1.5 border border-white/10 rounded-lg text-sm flex items-center gap-3">
           <Search className="size-4 text-emerald-300" />
           <input
+            onChange={onSearchInputChanged}
             className="bg-transparent flex-1 outline-none border-0 p-0 text-sm"
             placeholder="Buscar participante..."
           />
@@ -41,9 +74,9 @@ export function AttendeeList() {
         </thead>
 
         <tbody>
-          {Array.from({ length: 8 }).map((_, i) => {
+          {attendees.map((attendee) => {
             return (
-              <tr key={i} className="border-b border-white/10 hover:bg-white/5">
+              <tr key={attendee.id} className="border-b border-white/10 hover:bg-white/5">
                 <TableCell>
                   <input
                     type="checkbox"
@@ -54,16 +87,16 @@ export function AttendeeList() {
                 <TableCell>
                   <div className="flex flex-col gap-1">
                     <span className="font-semibold text-white">
-                      Otávio Goulart
+                      {attendee.name}
                     </span>
-                    <span>otavio@gmail.com</span>
+                    <span>{attendee.email}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  7 dias atrás
+                {dayjs().to(attendee.createdAt)}
                 </TableCell>
                 <TableCell>
-                  3 dias atrás
+                {dayjs().to(attendee.createdAt)}
                 </TableCell>
                 <TableCell>
                   <IconButton transparent={true}>
