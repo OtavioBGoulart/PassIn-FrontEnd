@@ -25,20 +25,43 @@ interface Attendee {
 
 export function AttendeeList() {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1)
+
   const [attendees, setAttendees] = useState<Attendee[]>([]);
+  const [total, setTotal] = useState(0)
+
+  const totalPages = Math.ceil(total / 10)
 
   useEffect(() => {
     fetch(
-      "http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees"
+      `http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees?pageIndex=${page - 1}`
     )
       .then((response) => response.json())
       .then((data) => {
         setAttendees(data.attendees);
+        setTotal(data.total);
       });
-  });
+  },[page]);
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
+  }
+
+
+  function goToFirstPage() {
+    setPage(1);
+  }
+
+  function goToLastPage() {
+    setPage(totalPages);
+  }
+
+  function goToPreviousPage() {
+    setPage(page - 1);
+  }
+
+  function goToNextPage() {
+    setPage(page + 1);
   }
 
   return (
@@ -96,7 +119,7 @@ export function AttendeeList() {
                 </TableCell>
                 <TableCell>{dayjs().to(attendee.createdAt)}</TableCell>
                 <TableCell>
-                  {attendee.id === null
+                  {attendee.checkedInAt === null
                     ? <span className="text-zinc-500">Não fez check-in</span>
                     : dayjs().to(attendee.checkedInAt)}
                 </TableCell>
@@ -112,21 +135,21 @@ export function AttendeeList() {
 
         <tfoot>
           <tr>
-            <TableCell colSpan={3}>Mostrando 10 de 28 items</TableCell>
+            <TableCell colSpan={3}>Mostrando {attendees.length} de {total} items</TableCell>
             <TableCell className="text-right" colSpan={3}>
               <div className="inline-flex items-center gap-8">
-                <span>Página 1 de 23</span>
+                <span>Página {page} de {totalPages}</span>
                 <div className="flex gap-1.5">
-                  <IconButton>
+                  <IconButton onClick={goToFirstPage} disabled={page === 1}>
                     <ChevronLeft className="size-4" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={goToPreviousPage} disabled={page === 1}>
                     <ChevronLeft className="size-4" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={goToNextPage} disabled={page === totalPages}>
                     <ChevronRight className="size-4" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={goToLastPage} disabled={page === totalPages}>
                     <ChevronRight className="size-4" />
                   </IconButton>
                 </div>
