@@ -27,7 +27,15 @@ interface Attendee {
 
 export function AttendeeList() {
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(() => {
+    const url = new URL(window.location.toString());
+
+    if (url.searchParams.has("page")) {
+      return Number(url.searchParams.get("page"));
+    }
+
+    return 1;
+  })
 
   const [attendees, setAttendees] = useState<Attendee[]>([]);
   const [total, setTotal] = useState(0)
@@ -35,8 +43,11 @@ export function AttendeeList() {
   const totalPages = Math.ceil(total / 10)
 
   useEffect(() => {
+    const url = new URL("http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees")
+    url.searchParams.set("pageIndex", String(page - 1));
+
     fetch(
-      `http://localhost:3333/events/9e9bd979-9d10-4915-b339-3786b1634f33/attendees?pageIndex=${page - 1}`
+      url
     )
       .then((response) => response.json())
       .then((data) => {
