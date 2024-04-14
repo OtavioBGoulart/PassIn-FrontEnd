@@ -51,6 +51,7 @@ export function AttendeeList() {
     url.searchParams.set("page", String(page));
 
     window.history.pushState({}, "", url)
+    setPage(page)
   }
 
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
