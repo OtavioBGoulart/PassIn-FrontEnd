@@ -3,6 +3,8 @@ import {
   MoreHorizontal,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight
 } from "lucide-react";
 import { IconButton } from "./icon-button";
 import { Table } from "./table/table";
@@ -43,25 +45,33 @@ export function AttendeeList() {
       });
   },[page]);
 
+  function setCurrentPage(page: number) {
+    const url = new URL(window.location.toString());
+
+    url.searchParams.set("page", String(page));
+
+    window.history.pushState({}, "", url)
+  }
+
   function onSearchInputChanged(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
   }
 
 
   function goToFirstPage() {
-    setPage(1);
+    setCurrentPage(1);
   }
 
   function goToLastPage() {
-    setPage(totalPages);
+    setCurrentPage(totalPages);
   }
 
   function goToPreviousPage() {
-    setPage(page - 1);
+    setCurrentPage(page - 1);
   }
 
   function goToNextPage() {
-    setPage(page + 1);
+    setCurrentPage(page + 1);
   }
 
   return (
@@ -141,7 +151,7 @@ export function AttendeeList() {
                 <span>Página {page} de {totalPages}</span>
                 <div className="flex gap-1.5">
                   <IconButton onClick={goToFirstPage} disabled={page === 1}>
-                    <ChevronLeft className="size-4" />
+                    <ChevronsLeft className="size-4" />
                   </IconButton>
                   <IconButton onClick={goToPreviousPage} disabled={page === 1}>
                     <ChevronLeft className="size-4" />
@@ -150,7 +160,7 @@ export function AttendeeList() {
                     <ChevronRight className="size-4" />
                   </IconButton>
                   <IconButton onClick={goToLastPage} disabled={page === totalPages}>
-                    <ChevronRight className="size-4" />
+                    <ChevronsRight className="size-4" />
                   </IconButton>
                 </div>
               </div>
